@@ -1,0 +1,97 @@
+#propiedad fundamental
+openapi: 3.0.0
+info:
+  title: API de Sistema de Facturación y Stock
+  description: API para gestionar facturas, productos, clientes, proveedores, inventario y reportes.
+  version: 1.0.0
+servers:
+  - url: localhost:8080/par2024
+
+#propiedad fundamental  
+paths:
+  /facturas:
+    get:
+      summary: Obtener todas las facturas
+      responses:
+        '200':
+          description: Lista de facturas obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Factura'
+  /facturas/{id}:
+    get:
+      summary: Obtener una factura por su ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único de la factura
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Factura obtenida correctamente
+        '404':
+          description: Factura no encontrada
+  /productos:
+    get:
+      summary: Obtener todos los productos en stock
+      responses:
+        '200':
+          description: Lista de productos obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Producto'
+
+#propiedad fundamental
+components:
+  schemas:
+    Factura:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID único de la factura
+        numero:
+          type: string
+          description: Número de la factura
+        cliente:
+          type: string
+          description: Nombre del cliente
+        total:
+          type: number
+          format: double
+          description: Total de la factura
+      required:
+        - numero
+        - cliente
+        - total
+        # Definición de otras propiedades de la factura
+    Producto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: ID único del producto
+        nombre:
+          type: string
+          description: Nombre del producto
+        precio:
+          type: number
+          format: double
+          description: Precio del producto
+        descripcion:
+          type: string
+          description: Descripción del producto
+      required:
+        - nombre
+        - precio
