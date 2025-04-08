@@ -5,7 +5,7 @@
 import java.io.*;
 import java.net.*;
 
-public class PeticionGET {
+public class peticionGET {
 
     public static void main(String[] args) {
         try {
